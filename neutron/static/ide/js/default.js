@@ -544,7 +544,8 @@ function add_commands (e) {
     exec: function(env, args, request) { SaveAll(); }
   });
 }
-function Compile () {
+
+function compile() {
   SaveCurrentTab()
   var dp = CurrentTab();
  //TODO SaveCurrentTab(runCompile) 
@@ -560,5 +561,24 @@ function Compile () {
         alert(data.error);
       }
     },
-    error: function (jqXHR, textStatus, errorThrown) { alert('Error Compiling: ' + dp); $("#status").html(''); }, });
+    error: function (jqXHR, textStatus, errorThrown) { alert('Error while running: ' + dp); $("#status").html(''); }, });
+}
+
+function run() {
+  SaveCurrentTab()
+  var dp = CurrentTab();
+ //TODO SaveCurrentTab(runCompile) 
+  $("#status").html('Compiling... ' + tab_paths[dp].filename);
+  
+  $.ajax({
+    type: 'POST',
+    url: '/run/',
+    data: {'path': dp },
+    success: function (data, textStatus, jqXHR) {
+      $("#status").html('');
+      if (data.result == 'bad') {
+        alert(data.error);
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) { alert('Error while running: ' + dp); $("#status").html(''); }, });
 }
