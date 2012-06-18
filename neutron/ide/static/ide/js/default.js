@@ -566,4 +566,19 @@ function add_commands (e) {
     },
     exec: function(env, args, request) { SaveAll(); }
   });
+
+ e.commands.addCommand({
+   name: 'toggleBreakpoint',
+   bindKey: {
+     win: 'F9',
+     mac: 'Fn-F9',
+     sender: 'editor'
+   },
+   exec: function(env, args, request) { toggleBreakpoint(); }
+ });
+}
+
+function toggleBreakpoint(){
+ var pos = editor_global.selection.getCursor();
+ editor_global.getSession().setBreakpoint(pos.row);
 }

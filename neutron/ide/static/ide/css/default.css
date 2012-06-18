@@ -527,3 +527,8 @@ ul.jqueryFileTree {
   color: #ccc;
 }
 
+.ace_breakpoint{
+ background-image:url(../img/breakpoint.png);
+ background-repeat:no-repeat;
+}
+
