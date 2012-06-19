@@ -53,6 +53,7 @@ var BackgroundTokenizer = require("./background_tokenizer").BackgroundTokenizer;
 var EditSession = function(text, mode) {
     this.$modified = true;
     this.$breakpoints = [];
+	this.$decorations = [];
     this.$frontMarkers = {};
     this.$backMarkers = {};
     this.$markerId = 1;
@@ -321,6 +322,7 @@ var EditSession = function(text, mode) {
     };
 
     this.setBreakpoint = function(row) {
+		console.log('HELLO');
         this.$breakpoints[row] = true;
         this._emit("changeBreakpoint", {});
     };
@@ -328,6 +330,18 @@ var EditSession = function(text, mode) {
     this.clearBreakpoint = function(row) {
         delete this.$breakpoints[row];
         this._emit("changeBreakpoint", {});
+    };
+
+	this.addDecoration = function(row,className) {
+		var e = {r:row,c:className}
+        this.$decorations[row] = className;
+        this._emit("addDecoration", e);
+    };
+
+    this.removeDecoration = function(row,className) {
+		var e = {r:row,c:className}
+        delete this.$decorations[row];
+        this._emit("removeDecoration", e);
     };
 
     this.getBreakpoints = function() {

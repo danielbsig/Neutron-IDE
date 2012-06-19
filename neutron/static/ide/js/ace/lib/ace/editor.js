@@ -111,6 +111,8 @@ var Editor = function(renderer, session) {
             this.session.removeEventListener("changeFrontMarker", this.$onChangeFrontMarker);
             this.session.removeEventListener("changeBackMarker", this.$onChangeBackMarker);
             this.session.removeEventListener("changeBreakpoint", this.$onChangeBreakpoint);
+			this.session.removeEventListener("addDecoration", this.$onAddDecoration);
+			this.session.removeEventListener("removeDecoration", this.$onRemoveDecoration);
             this.session.removeEventListener("changeAnnotation", this.$onChangeAnnotation);
             this.session.removeEventListener("changeOverwrite", this.$onCursorChange);
             this.session.removeEventListener("changeScrollTop", this.$onScrollTopChange);
@@ -153,6 +155,12 @@ var Editor = function(renderer, session) {
 
         this.$onChangeBreakpoint = this.onChangeBreakpoint.bind(this);
         this.session.addEventListener("changeBreakpoint", this.$onChangeBreakpoint);
+
+		this.$onAddDecoration = this.onAddDecoration.bind(this);
+	    this.session.addEventListener("addDecoration", this.$onAddDecoration);
+	
+		this.$onRemoveDecoration = this.onRemoveDecoration.bind(this);
+	    this.session.addEventListener("removeDecoration", this.$onRemoveDecoration);
 
         this.$onChangeAnnotation = this.onChangeAnnotation.bind(this);
         this.session.addEventListener("changeAnnotation", this.$onChangeAnnotation);
@@ -379,6 +387,14 @@ var Editor = function(renderer, session) {
     this.onChangeBreakpoint = function() {
         this.renderer.setBreakpoints(this.session.getBreakpoints());
     };
+	
+	this.onAddDecoration = function(e) {
+		this.renderer.addGutterDecoration(e.r, e.c);
+	};
+	
+	this.onRemoveDecoration = function(e) {
+		this.renderer.removeGutterDecoration(e.r, e.c);
+	};
 
     this.onChangeAnnotation = function() {
         this.renderer.setAnnotations(this.session.getAnnotations());

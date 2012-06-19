@@ -571,7 +571,7 @@ function add_commands (e) {
    name: 'toggleBreakpoint',
    bindKey: {
      win: 'F9',
-     mac: 'F9',
+     mac: 'Fn-F9',
      sender: 'editor'
    },
    exec: function(env, args, request) { toggleBreakpoint(); }
@@ -580,5 +580,6 @@ function add_commands (e) {
 
 function toggleBreakpoint(){
  var pos = editor_global.selection.getCursor();
- editor_global getSession().setBreakpoint(pos);
+   editor_global.getSession().setBreakpoint(pos.row);
+   //editor_global.getSession().addDecoration(pos.row,'nextStatement'); 
 }

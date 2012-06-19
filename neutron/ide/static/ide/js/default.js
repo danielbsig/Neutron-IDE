@@ -580,5 +580,6 @@ function add_commands (e) {
 
 function toggleBreakpoint(){
  var pos = editor_global.selection.getCursor();
- editor_global.getSession().setBreakpoint(pos.row);
+   editor_global.getSession().setBreakpoint(pos.row);
+   //editor_global.getSession().addDecoration(pos.row,'nextStatement'); 
 }
