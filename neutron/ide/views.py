@@ -200,7 +200,7 @@ def compile (request):
   outfile = path
   outfile = outfile.split(".")[0]
   outfile = outfile + ".out"
-  command = "g++ "+path+" -o "+outfile
+  command = "g++ -g "+path+" -o "+outfile
   p = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
   out, err = p.communicate()
 
@@ -213,7 +213,13 @@ def run (request):
   outfile = path
   outfile = outfile.split(".")[0]
   outfile = outfile + ".out"
-  p = subprocess.Popen([outfile], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  listpath = path.split("/")
+  listpath.pop()
+  dir = ''
+  for i in listpath:
+    dir +='/'+i
+
+  p = subprocess.Popen(['gdb','-x',dir+'/.debug',outfile], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   out, err = p.communicate()
   return http.HttpResponse(json.dumps({'result': out, 'error': err}), mimetype=settings.JSON_MIME)
 
