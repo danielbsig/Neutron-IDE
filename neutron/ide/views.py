@@ -218,6 +218,22 @@ def run (request):
   return http.HttpResponse(json.dumps({'result': out, 'error': err}), mimetype=settings.JSON_MIME)
 
 @login_required
+def cont(request):
+  return 0
+
+@login_required
+def debug(request):
+  return 0
+
+@login_required
+def step(request):
+  return 0
+
+@login_required
+def stepi(request):
+  return 0
+
+@login_required
 def fileget (request):
   try:
     base_dir = request.user.preferences.basedir
