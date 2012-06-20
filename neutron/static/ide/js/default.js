@@ -556,6 +556,17 @@ function add_commands (e) {
       },
       exec: function(env, args, request) { $('#quick_search').show("fast").focus().select(); }
   });
+
+  e.commands.addCommand({
+   	  name: 'toggleBreakpoint',
+      bindKey: {
+       win: 'F9',
+       mac: 'Command-F9',
+       sender: 'editor'
+     },
+     exec: function(env, args, request) { toggleBreakpoint(); }
+   });
+  
   
   e.commands.addCommand({
     name: 'SaveAllFile',
@@ -567,3 +578,12 @@ function add_commands (e) {
     exec: function(env, args, request) { SaveAll(); }
   });
 }
+
+
+function toggleBreakpoint(){
+ var pos = editor_global.selection.getCursor();
+ editor_global.getSession().setBreakpoint(pos.row);
+}
+
+
+
