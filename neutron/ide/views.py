@@ -213,6 +213,17 @@ def run (request):
   outfile = path
   outfile = outfile.split(".")[0]
   outfile = outfile + ".out"
+
+  p = subprocess.Popen(['outfile'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  out, err = p.communicate()
+  return http.HttpResponse(json.dumps({'result': out, 'error': err}), mimetype=settings.JSON_MIME)
+
+@login_required
+def debug (request): 
+  path = request.POST.get('path', '')
+  outfile = path
+  outfile = outfile.split(".")[0]
+  outfile = outfile + ".out"
   listpath = path.split("/")
   listpath.pop()
   dir = ''
@@ -225,10 +236,6 @@ def run (request):
 
 @login_required
 def cont(request):
-  return 0
-
-@login_required
-def debug(request):
   return 0
 
 @login_required
