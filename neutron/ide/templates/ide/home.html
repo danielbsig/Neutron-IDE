@@ -229,9 +229,10 @@
 	<button id="run" class="k-button" onclick="return run()"><img src="{{ STATIC_URL }}ide/img/run.png" alt="Run" title="Run"/></button>
 	<button id="menu_button" class="k-button" onclick="return compile()">Compile</button>
 	<button id="menu_button" class="k-button" onclick="return run()">Run</button>
-	<button id="debug_button" class="k-button" onclick="return debugover()">Step Over</button>
-	<button id="debug_button" class="k-button" onclick="return debugin()">Step Into</button>
-	<button id="debug_button" class="k-button" onclick="return debugin()">Step Out</button>
+	<button id="menu_button" class="k-button" onclick="return debug()">Debug</button>
+	<button id="menu_button" class="k-button" onclick="return step()">Step</button>
+	<button id="menu_button" class="k-button" onclick="return stepi()">Step Into</button>
+	<button id="menu_button" class="k-button" onclick="return cont()">Continue</button>
     <div style="display: inline-block"><input type="text" id="quick_search"/></div>
     <div id="current_edit">Welcome to Neutron IDE</div>
     <div id="status"></div>
