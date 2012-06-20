@@ -409,7 +409,6 @@ $(document).ready( function() {
       var index = $( "li", $tabs ).index(p);
       $tabs.tabs( "remove", index );
     });
-    
 });
 
 function size_search (e) {
@@ -441,6 +440,8 @@ function size_search (e) {
     if (editor_global) {
       editor_global.resize();
     }
+
+		$(".menu_bottom").css("padding-left", $("#splitter_left").width());
     
   }, 400);
 }
@@ -462,6 +463,8 @@ $(document).ready(function () {
       hide_menu();
     }
   });
+
+  $(".menu_bottom").css("padding-left", $("#splitter_left").width());
   
   search_panel = $("#search_panel").kendoPanelBar().data("kendoPanelBar");
   $("#search_panel_search > span").click();
@@ -480,10 +483,10 @@ $(document).ready(function () {
   if (splitterm) {
     setTimeout(
       function () {
-        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: true, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter");
+        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter");
 
-var aksplitter = $("#splitter").data("kendoSplitter");
-aksplitter.collapse("#ide_bottom");
+var splitter = $("#splitter").data("kendoSplitter");
+splitter.collapse("#ide_bottom"); //Hiding the terminal
 
       },
       0
@@ -551,11 +554,11 @@ function add_commands (e) {
   e.commands.addCommand({
       name: 'QuickSearch',
       bindKey: {
-        win: 'Ctrl-Q',
-        mac: 'Command-Q',
+        win: 'Ctrl-F',
+        mac: 'Command-F',
         sender: 'editor'
       },
-      exec: function(env, args, request) { $('#quick_search').focus().select(); }
+      exec: function(env, args, request) { $('#quick_search').show("fast").focus().select(); }
   });
   
   e.commands.addCommand({
