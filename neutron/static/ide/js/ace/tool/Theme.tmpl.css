@@ -22,7 +22,6 @@
 }
 
 .%cssClass% .ace_text-layer {
-  cursor: text;
   color: %foreground%;
 }
 
@@ -34,9 +33,14 @@
   border-left: 0px;
   border-bottom: 1px solid %overwrite%;
 }
- 
+
 .%cssClass% .ace_marker-layer .ace_selection {
   background: %selection%;
+}
+
+.%cssClass%.multiselect .ace_selection.start {
+  box-shadow: 0 0 3px 0px %background%;
+  border-radius: 2px;
 }
 
 .%cssClass% .ace_marker-layer .ace_step {
@@ -52,15 +56,19 @@
   background: %active_line%;
 }
 
+.%cssClass% .ace_gutter_active_line {
+  background-color : #dcdcdc;
+}
+
 .%cssClass% .ace_marker-layer .ace_selected_word {
   %selected_word_highlight%
 }
-       
+
 .%cssClass% .ace_invisible {
   %invisible%
 }
 
-.%cssClass% .ace_keyword {
+.%cssClass% .ace_keyword, .%cssClass% .ace_meta {
   %keyword%
 }
 
@@ -68,7 +76,15 @@
   %keyword.operator%
 }
 
-.%cssClass% .ace_constant {
+.%cssClass% .ace_constant, .%cssClass% .ace_constant.ace_other {
+  %constant%
+}
+
+.%cssClass% .ace_constant.ace_character,  {
+  %constant%
+}
+
+.%cssClass% .ace_constant.ace_character.ace_escape,  {
   %constant%
 }
 
@@ -82,6 +98,10 @@
 
 .%cssClass% .ace_constant.ace_numeric {
   %constant.numeric%
+}
+
+.%cssClass% .ace_constant.ace_other {
+  %constant.other%
 }
 
 .%cssClass% .ace_invalid {
@@ -100,6 +120,10 @@
   %support%
 }
 
+.%cssClass% .ace_support.ace_constant {
+  %support.constant%
+}
+
 .%cssClass% .ace_fold {
     background-color: %fold%;
     border-color: %foreground%;
@@ -107,6 +131,22 @@
 
 .%cssClass% .ace_support.ace_function {
   %support.function%
+}
+
+.%cssClass% .ace_storage {
+  %storage%
+}
+
+.%cssClass% .ace_storage.ace_type,  .%cssClass% .ace_support.ace_type{
+  %storage.type%
+}
+
+.%cssClass% .ace_variable {
+  %entity.name.function%
+}
+
+.%cssClass% .ace_variable.ace_parameter {
+  %variable.parameter%
 }
 
 .%cssClass% .ace_function.ace_buildin {
@@ -206,5 +246,5 @@
 }
 
 .%cssClass% .ace_collab.ace_user1 {
-  %collab.user1%   
+  %collab.user1%
 }
