@@ -84,6 +84,13 @@ function doCompile () {
   });
 }
 
+function debug(){
+
+}
+function step(){}
+function stepi(){}
+function cont(){}
+
 function SaveCurrentTab (func) {
   var dp = CurrentTab();
   var contents = editor_global.getSession().getValue();
