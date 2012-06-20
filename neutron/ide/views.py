@@ -214,7 +214,7 @@ def run (request):
   outfile = outfile.split(".")[0]
   outfile = outfile + ".out"
 
-  p = subprocess.Popen(['outfile'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  p = subprocess.Popen([outfile], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   out, err = p.communicate()
   return http.HttpResponse(json.dumps({'result': out, 'error': err}), mimetype=settings.JSON_MIME)
 
