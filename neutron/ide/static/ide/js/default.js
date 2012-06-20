@@ -481,6 +481,10 @@ $(document).ready(function () {
     setTimeout(
       function () {
         tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter");
+
+var aksplitter = $("#splitter").data("kendoSplitter");
+aksplitter.collapse("#ide_bottom");
+
       },
       0
     )

@@ -74,6 +74,13 @@ class TerminalWebSocket (WebSocketHandler):
       cmd = SCREEN_COMMAND + ' -A ' + os.path.join(settings.TERM_DIR, str(tsid)) + ' -z -r ctrl_l ' + ide.settings.TERMINAL_SHELL
       
     self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
+
+  def create_debug_terminal (self, tsid, user, width, height, path, restart=False):
+    self.terminals[tsid] = ide.terminal.Terminal()
+    
+    cmd = path[:-3] + "out"
+      
+    self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
     
   def process_line (self, num, line):
     html = ''
@@ -205,6 +212,30 @@ class TerminalWebSocket (WebSocketHandler):
         self.write_message(unicode(json.dumps({'action': 'message', 'data': 'Invalid User Credentials'})))
         self.close()
         
+      elif data['action'] == 'debug_start':
+        session = ENGINE.SessionStore(data['session'])
+        if session.has_key('_auth_user_id') and session['_auth_user_id']:
+          try:
+            user = User.objects.get(id=session['_auth_user_id'])
+          
+          except:
+            user = None
+            
+          if user and user.is_active:
+            restart = False
+            if data.has_key('restart') and data['restart']:
+              restart = True
+              
+            self.create_terminal(tsid, user, data['cols'], data['lines'], restart)
+            self.cols = data['cols']
+            self.lines = data['lines']
+            
+            if restart:
+              self.terminals[tsid].write(u'\x0c') # ctrl-l
+              
+            self.term_refresh(tsid, True)
+            
+            return None
       elif data['action'] == 'reset':
         self.terminals[tsid].write(u'\x0c') # ctrl-l
         self.term_refresh(tsid, True)
