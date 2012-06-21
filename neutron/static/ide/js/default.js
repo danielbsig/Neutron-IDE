@@ -43,7 +43,55 @@ function CurrentTab () {
   }
 }
 
-function SaveCurrentTab () {
+function run () {
+  var dp = CurrentTab();
+  
+  $("#status").html('Running ' + tab_paths[dp].filename);
+  
+  $.ajax({
+    type: 'POST',
+    url: '/run/',
+    data: {'path': dp},
+    success: function (data, textStatus, jqXHR) {
+      $("#status").html('');
+      if (data.result != '') {
+        alert(data.result);
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) { alert('Error while running: ' + dp); $("#status").html(''); },
+  });
+}
+function compile(){
+  SaveCurrentTab(doCompile);
+}
+
+function doCompile () {
+  var dp = CurrentTab();
+  
+  $("#status").html('Compiling ' + tab_paths[dp].filename);
+  
+  $.ajax({
+    type: 'POST',
+    url: '/compile/',
+    data: {'path': dp},
+    success: function (data, textStatus, jqXHR) {
+      $("#status").html('');
+      if (data.error != '') {
+        alert(data.error);
+      }
+    },
+    error: function (jqXHR, textStatus, errorThrown) { alert('Error Compiling: ' + dp); $("#status").html(''); },
+  });
+}
+
+function debug(){
+
+}
+function step(){}
+function stepi(){}
+function cont(){}
+
+function SaveCurrentTab (func) {
   var dp = CurrentTab();
   var contents = editor_global.getSession().getValue();
   
