@@ -144,7 +144,7 @@
 							<li><a href="#">Coding</a></li>
 						</li>
 						</ul>
-					<li><a href="#"><div class="memu-icon sprite-information"></div>About</a></li>
+					<li><a href="#" onclick="about_window()"><div class="memu-icon sprite-information"></div>About</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -223,6 +223,7 @@
 		 });
     
 		</script>
+    
   <!--  <button id="menu_button" class="k-button" onclick="return show_menu()"><img src="{{ STATIC_URL }}ide/img/menu.png" alt="Menu" title="Menu"/></button> -->
 	
   <div class ="menu_bottom">
@@ -319,6 +320,12 @@
     <li><a href="javascript: void(0)" onclick="about()" class="about">About</a></li>
   </ul>
 </div>
+
+   
+    <div id="about_window">
+    <p> This project........about the about </p>
+    </div>
+ 
 {% endblock %}
 
 <script type="text/javascript">

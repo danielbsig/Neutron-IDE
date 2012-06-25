@@ -26,11 +26,37 @@ $(document).ready(function () {
   
 });
 
+///////////////////////////////////////////////////////////////////////////
+
+
+var about_win;
+$(document).ready(function () {
+  about_win = $("#about_window").kendoWindow({
+  title: 'About', 
+  modal: true, 
+  width: "350px", 
+  height: "200px",
+  visible: false }).data("kendoWindow");
+  
+
+  
+  //$(this).parent().children().children('.ui-dialog-titlebar-close').hide();
+  
+});
+
+///////////////////////////////////////////////////////////////////////////
+
 function show_pref () {
   hide_menu();
   pref_win.center();
   pref_win.open();
   $("#editor_pref iframe").attr('src', '/editor_pref/');
+}
+function about_window () {
+  hide_menu()
+  about_win.center();
+  about_win.open();
+   
 }
 
 function update_prefs (new_prefs) {
