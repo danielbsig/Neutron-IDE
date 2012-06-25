@@ -32,9 +32,9 @@ $(document).ready(function () {
 var about_win;
 $(document).ready(function () {
   about_win = $("#about_window").kendoWindow({
-  title: 'About', 
+  title: 'About The Project', 
   modal: true, 
-  width: "350px", 
+  width: "450px", 
   height: "200px",
   visible: false }).data("kendoWindow");
   
