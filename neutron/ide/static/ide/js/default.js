@@ -555,6 +555,7 @@ $(document).ready(function () {
   //Implementation of autoSave
     var autoSavePending = false;
     
+  if (editor_global){
       editor_global.getSession().on('change', function(){
         $("#status").html(' ');
         if (autoSavePending == false){
@@ -568,7 +569,7 @@ $(document).ready(function () {
           },5000);
           
         }
-      });
+      });}
 });
 
 function track_ide () {
