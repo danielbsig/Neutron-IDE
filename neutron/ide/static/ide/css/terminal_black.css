@@ -111,7 +111,7 @@ body {
 }
 
 #close_icon {
-  position: absolute;
+  position: relative;
   bottom: 2px;
   width: 32px;
 }

@@ -531,7 +531,9 @@ $(document).ready(function () {
   if (splitterm) {
     setTimeout(
       function () {
-        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter");
+        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter")
+var splitter = $("#splitter").data("kendoSplitter");
+splitter.collapse("#ide_bottom"); //Hiding the terminal    
       },
       0
     )
@@ -555,6 +557,7 @@ $(document).ready(function () {
   //Implementation of autoSave
     var autoSavePending = false;
     
+  if (editor_global){
       editor_global.getSession().on('change', function(){
         $("#status").html(' ');
         if (autoSavePending == false){
@@ -568,7 +571,7 @@ $(document).ready(function () {
           },5000);
           
         }
-      });
+      });}
 });
 
 function track_ide () {
@@ -609,7 +612,7 @@ function add_commands (e) {
    	  name: 'toggleBreakpoint',
       bindKey: {
        win: 'F9',
-       mac: 'Command-F9',
+       mac: 'Command-shift-B',
        sender: 'editor'
      },
      exec: function(env, args, request) { toggleBreakpoint(); }

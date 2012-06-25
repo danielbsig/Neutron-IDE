@@ -74,7 +74,15 @@ class TerminalWebSocket (WebSocketHandler):
       cmd = SCREEN_COMMAND + ' -A ' + os.path.join(settings.TERM_DIR, str(tsid)) + ' -z -r ctrl_l ' + ide.settings.TERMINAL_SHELL
       
     self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
+
+
+  def create_debug_terminal (self, tsid, user, width, height, restart=False):
+    self.terminals[tsid] = ide.terminal.Terminal()
     
+    cmd = path[:-3] + "out"
+      
+    self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
+
   def process_line (self, num, line):
     html = ''
     last_class = None
@@ -204,7 +212,12 @@ class TerminalWebSocket (WebSocketHandler):
             
         self.write_message(unicode(json.dumps({'action': 'message', 'data': 'Invalid User Credentials'})))
         self.close()
-        
+
+
+      elif data['action'] == 'run_debug':
+        self.terminals[tsid].write(u'\x0c') # ctrl-l
+        self.term_refresh(tsid, True)
+
       elif data['action'] == 'reset':
         self.terminals[tsid].write(u'\x0c') # ctrl-l
         self.term_refresh(tsid, True)

@@ -61,6 +61,22 @@ function run () {
     error: function (jqXHR, textStatus, errorThrown) { alert('Error while running: ' + dp); $("#status").html(''); },
   });
 }
+
+
+function run_debug () {
+  var dp = CurrentTab();
+  
+  var data = {
+    action: 'start_debug',
+    lines: LINES,
+    cols: COLS,
+    tsid: ts,
+    session: getCookie(cookie_name),
+    path: tab_paths[dp].filename
+  }
+  
+  ws.send(JSON.stringify(data));
+}
 function compile(){
   SaveCurrentTab(doCompile);
 }
@@ -531,7 +547,9 @@ $(document).ready(function () {
   if (splitterm) {
     setTimeout(
       function () {
-        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter");
+        tsplitter = $("#splitter_right").kendoSplitter({orientation: 'vertical', resize: size_search, panes: [{collapsible: false, scrollable: false}, {contentUrl: "/terminal/?split=1", resizable: true, collapsible: true, scrollable: false, size: '300px'}]}).data("kendoSplitter")
+var splitter = $("#splitter").data("kendoSplitter");
+splitter.collapse("#ide_bottom"); //Hiding the terminal    
       },
       0
     )
