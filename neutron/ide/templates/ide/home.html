@@ -144,7 +144,7 @@
 							<li><a href="#">Coding</a></li>
 						</li>
 						</ul>
-					<li><a href="#"><div class="memu-icon sprite-information"></div>About</a></li>
+					<li><a href="#" onclick="about_window()"><div class="memu-icon sprite-information"></div>About</a></li>
 				</ul>
 			</li>
 		</ul>
@@ -223,6 +223,7 @@
 		 });
     
 		</script>
+    
   <!--  <button id="menu_button" class="k-button" onclick="return show_menu()"><img src="{{ STATIC_URL }}ide/img/menu.png" alt="Menu" title="Menu"/></button> -->
 	
   <div class ="menu_bottom">
@@ -319,6 +320,25 @@
     <li><a href="javascript: void(0)" onclick="about()" class="about">About</a></li>
   </ul>
 </div>
+
+   
+    <div id="about_window" style = "font-size: 10px; color: #303030;">
+    <p> This project is a part of a project for the course "Open Source" taught 2012 at Reykjavik University</p>
+<p>The project is based on NeutronIDE by <a href ="https://plus.google.com/111994399408696258069/about">Paul Bailey</a></p>
+  <p>Neutron IDE is based on <a href = "http://ace.ajax.org/">Ace Editor</a></p>
+  <p><b>Teacher :Daniel Brandur Sigurgeirsson- dabs@ru.is</b></p>
+  <hr/>
+  <p>Arelíus Arelíusarson - arelius10@ru.is</p>
+  <p>Arnþór Ágústsson - arnthor09@ru.is</p>
+  <p>Ingólfur Eðvarðsson - ingolfure09@ru.is</p>
+  <p>Ingvar Sigurðsson - ingvars11@ru.is</p>
+  <p>Karl Helgason - karlh06@ru.is</p>
+  <p>Konráð Guðmundsson - konrad11@ru.is</p>
+  <p>Marteinn Haraldsson - marteinnh09@ru.is</p>
+  <p>Þórarinn Magnússon - thorarinnm10@ru.is</p>
+  
+    </div>
+ 
 {% endblock %}
 
 <script type="text/javascript">
