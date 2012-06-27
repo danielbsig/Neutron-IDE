@@ -249,6 +249,7 @@
           <ul>
             <li id="fbtab">Files</li>
             <li id="searchtab">Search</li>
+            <li id="errorlist">Errors</li>
           </ul>
           <div>
             <div id="file_browser">
@@ -258,6 +259,9 @@
           </div>
           <div>
             {% include "ide/search_tab.html" %}
+          </div>
+          <div>
+            {% include "ide/error_tab.html" %}
           </div>
         </div>
       </div>
