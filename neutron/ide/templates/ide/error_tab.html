@@ -1,0 +1,35 @@
+<style>
+#errorTable{
+  font-size: 10px;
+}
+#errorTable td {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #303030;
+}
+</style>
+<script>
+  var line = "<td>" + errorObject.file + "</td>"
+   $(document).ready(function(){
+    $('table').find('tr').each(function(){
+        $(this).find('td').eq(0).after(line);
+    });
+});
+</script>
+<table id = "errorTable">
+<th>File</th>
+<th>Line</th>
+<th>Error</th>
+<!--In a single row, the information being passed are: 1. What file was being compiled. 2. What line produced the error. 3. Error message-->
+<tr>
+<td>something
+</td>
+<td>
+somethingElse
+</td>
+
+</tr>
+
+</table>

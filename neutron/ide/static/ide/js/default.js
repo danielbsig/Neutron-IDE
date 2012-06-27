@@ -1,3 +1,8 @@
+var errorObject = {
+      bool: true,
+      listOferrors: undefined,
+      file: "This file has an error"};
+
 $(document).ajaxSend(function(event, xhr, settings) {
     function sameOrigin(url) {
         // url could be relative or scheme relative or absolute
@@ -499,6 +504,7 @@ var esplitter;
 var tsplitter;
 var tabstrip;
 var tooltabs;
+var errorlist;
 var search_panel;
 
 $(document).ready(function () {
@@ -511,7 +517,14 @@ $(document).ready(function () {
       hide_menu();
     }
   });
-
+////////////////////////////////////////////////////////////////////////////////////////////////////    
+ // $("#errorlist").hide();
+    if(errorObject.bool != undefined)
+    {
+      $("#errorlist").show();
+  
+    }
+///////////////////////////////////////////////////////////////////////////////////////////////
   $(".menu_bottom").css("padding-left", $("#splitter_left").width());
   
   search_panel = $("#search_panel").kendoPanelBar().data("kendoPanelBar");
