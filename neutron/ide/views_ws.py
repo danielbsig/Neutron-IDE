@@ -76,10 +76,11 @@ class TerminalWebSocket (WebSocketHandler):
     self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
 
 
-  def create_debug_terminal (self, tsid, user, width, height, restart=False):
+  def create_run_terminal (self, tsid, user, width, height, path, restart=False):
     self.terminals[tsid] = ide.terminal.Terminal()
     
-    cmd = path[:-3] + "out"
+    cmd = ide.settings.TERMINAL_SHELL + " g++ " + path[:-3] + "out"
+   # cmd = path[:-3] + "out"
       
     self.terminals[tsid].start(cmd, user.preferences.basedir, width, height, tsid=tsid, onclose=self.cleanup_terminal)
 
@@ -199,9 +200,10 @@ class TerminalWebSocket (WebSocketHandler):
             if data.has_key('restart') and data['restart']:
               restart = True
               
-            self.create_terminal(tsid, user, data['cols'], data['lines'], restart)
+            self.create_run_terminal(tsid, user, data['cols'], data['lines'], data['path'], restart)
             self.cols = data['cols']
             self.lines = data['lines']
+            print data['path']
             
             if restart:
               self.terminals[tsid].write(u'\x0c') # ctrl-l

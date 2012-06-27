@@ -42,7 +42,7 @@ function CurrentTab () {
     return false;
   }
 }
-
+/*
 function run () {
   var dp = CurrentTab();
   
@@ -60,6 +60,40 @@ function run () {
     },
     error: function (jqXHR, textStatus, errorThrown) { alert('Error while running: ' + dp); $("#status").html(''); },
   });
+}
+*/
+
+function run () {
+  var dp = CurrentTab();
+  var ts = new Date().getTime();
+
+  terminals[ts] = {}
+
+  current_ts = ts;
+  terminal_count = terminal_count + 1;
+
+  var data = {
+    action: 'start',
+    lines: 80,
+    cols: 80,
+    tsid: ts,
+    session: getCookie(cookie_name),
+    path: tab_paths[dp].filename
+  }
+  
+  ws.send(JSON.stringify(data));
+  
+  var splitterm = $("#splitter").data("kendoSplitter");
+  splitterm.expand("#ide_bottom");
+
+  var html = '<div class="a term" onclick="view_terminal(' + ts + ')" id="terminal_' + ts +'">\
+<div class="n">'+ terminal_count + '</div><img src="' + static_url + 'ide/img/term/terminal_black.png"\
+alt="View Terminal '+ terminal_count + '" title="New Terminal '+ terminal_count + '"></div>';
+  $('#icons').append(html);
+  $('#icons .a.term img').removeClass('selected');
+  $('#icons #terminal_' + ts + ' img').addClass('selected');
+  $('#reconnect').addClass('hidden');
+  $('#term_input').focus();
 }
 function compile(){
   SaveCurrentTab(doCompile);
