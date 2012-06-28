@@ -106,6 +106,7 @@ function SaveCurrentTab (func) {
       if (data.result == 'bad') {
         alert(data.error);
       }
+      if (func != undefined) {func(); }
     },
     error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving: ' + dp); $("#status").html(''); },
   });

@@ -201,9 +201,16 @@ def compile (request):
   outfile = outfile.split(".")[0]
   outfile = outfile + ".out"
   command = "g++ -g "+path+" -o "+outfile
+  print command
   p = subprocess.Popen([command], stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
   out, err = p.communicate()
-
+  err = err.split('\n')
+  errTemp = ""
+  for x in err:
+    if ".cpp:" in x:
+      x = x.split(".cpp:")[1]
+      errTemp += x+"\n"
+    err = errTemp
   return http.HttpResponse(json.dumps({'result': out, 'error': err}), mimetype=settings.JSON_MIME)
   
 
