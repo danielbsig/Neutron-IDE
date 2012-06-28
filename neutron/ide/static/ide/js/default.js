@@ -634,5 +634,26 @@ function toggleBreakpoint(){
  editor_global.getSession().setBreakpoint(pos.row);
 }
 
+function DebugGoToLine( file, line ){
+	
+	var cTab = CurrentTab();
+	if(file != cTab)
+	{
+		// Open new tap with correct file.
+		get_file(file);
+		editor_global.gotoLine(line,1,true);
+	}
+	else
+	{
+		editor_global.gotoLine(line,1,true);
+	}
+
+	
+}
+
+function ErrorGoToLine( file, line ){
+// Implementation goes here...
+}
+
 
 
