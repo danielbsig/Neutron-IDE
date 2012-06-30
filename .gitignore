@@ -3,6 +3,7 @@
 *.log
 *.swp
 *.js~
+*.*~
 devserver
 neutron.sql3
 neutron/settings_local.py

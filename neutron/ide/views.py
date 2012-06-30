@@ -31,15 +31,33 @@ from ide.templatetags.ntags import hashstr
 
 GOOD_CSTATES = ("SUCCESS", "STARTED", "RECEIVED")
 
+
+def get_user_directory(user):
+  return settings.USERDIR + "/" + user.username
+
+def create_initial_preferences(user):
+  theFolder = get_user_directory(user)
+  prefs = ide.models.Preferences()
+  prefs.user = user;
+  # TODO: populate with more initial data???
+  prefs.basedir = theFolder
+  prefs.save()
+  
+
 def user_folder_check (sender, user, request, **kwargs):
-  theFolder = settings.USERDIR + "/" + user.username
-  prefs = ide.models.Preferences.objects.get(user=user)
+  theFolder = get_user_directory(user)
+  prefs = None
+  try:
+    prefs = ide.models.Preferences.objects.get(user=user)
+  except ide.models.Preferences.DoesNotExist:
+    create_initial_preferences(user)
+
   if not prefs == None:
     if not prefs.basedir == theFolder :
       prefs.basedir = theFolder
       prefs.save()
-      if not os.path.exists(theFolder):
-        os.mkdir(theFolder)
+    if not os.path.exists(theFolder):
+      os.mkdir(theFolder)
   
 user_logged_in.connect(user_folder_check)
 
@@ -52,7 +70,9 @@ def home (request):
     base_dir = request.user.preferences.basedir
     
   except:
-    return TemplateResponse(request, 'ide/message.html', {'message': 'Please fill out a user preference.'})
+    #return TemplateResponse(request, 'ide/message.html', {'message': 'Please fill out a user preference.'})
+    create_initial_preferences(request.user)
+    base_dir = get_user_directory(request.user)
     
   C_ON = False
   if ide.settings.SKIP_CELERY_CHECK:

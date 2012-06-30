@@ -135,7 +135,7 @@
 			</li>
 			
 			<li class="memu-root">
-				<a href="#">Help</a>
+				<a href="#" id="menu_help">Help</a>
 				<ul>
 					<li><a href="#"><div class="memu-icon sprite-help"></div>Help</a></li>
 					<li class="has-children" ><a href="#"><div class="memu-icon sprite-user_comment"></div>Tutorials</a>
@@ -169,11 +169,11 @@
 	
 		 guiders.createGuider({
 		      buttons: [{name: "Next"}],
-		      description: "Lorem ipsum Lorem ipsum Lorem ipsum.",
+		      description: "We will guide you through the user interface of the IDE.",
 		      id: "first",
 		      next: "second",
 		      overlay: true,
-		      title: "Velkomin í sýnikennslu"
+		      title: "Welcome to RU-IDE"
 		    }).show();
 		
 		guiders.createGuider({
@@ -209,6 +209,15 @@
 		 	  width: 300
 		    });
 		
+		   guiders.createGuider({
+		      attachTo: "#menu_help",
+		      buttons: [{name: "Close"}],
+		      description: "Please check out the other tutorials. They are expecially helpful if you are a beginner.",
+		      id: "fifth",
+		      position:2,
+		      title: "Run",
+		 	  width: 300
+		    });
 			}
 				// TODO: LAGA CSS
 				$('button#debug_button').hide();
