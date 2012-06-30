@@ -526,6 +526,13 @@ def save_session (request):
   request.user.preferences.save()
   
   return ide.utils.good_json()
+
+@login_required
+def save_guide_tour (request):
+  print "save_guide_tour: the value we receive is" + request.POST.get('guide_tour', False)
+  request.user.preferences.guide_tour = ide.utils.js_bool_to_python_bool( request.POST.get('guide_tour', False) )
+  request.user.preferences.save()
+  return ide.utils.good_json()  
   
 @login_required
 def editor_pref (request):

@@ -189,7 +189,7 @@
 		
 		guiders.createGuider({
 			  attachTo: "#editor_global",
-			  buttons: [{name: "Close" },{ name: "Next"}],
+			  buttons: [{name: "Next"}],
 			  description: "Here you can edit your code, all your code is autosaved.",
 			  id: "third",
 			  next: "fourth",
@@ -200,8 +200,8 @@
 		
 		   guiders.createGuider({
 		      attachTo: "#menu_button",
-		      buttons: [{name: "Close"}],
-		      description: "Here you can compile and run your program.",
+		      buttons: [{name: "Next"}],
+		      description: "Press the Compile button to compile your code. That way, you will know if there are any compiler errors. You can also simply press Run, which will compile your code first if necessary. Finally, you may want to use the Debug button to debug your program, but that is covered in another tutorial.",
 		      id: "fourth",
 		      next: "fifth",
 		      position:2,
@@ -214,10 +214,15 @@
 		      buttons: [{name: "Close"}],
 		      description: "Please check out the other tutorials. They are expecially helpful if you are a beginner.",
 		      id: "fifth",
+		      next: "none",
 		      position:2,
-		      title: "Run",
-		 	  width: 300
+		      title: "Other tutorials",
+		      width: 300
 		    });
+			
+			// TODO: update the guide_tour property, i.e. set it to false!
+			pref.guide_tour = false;
+			save_guide_tour( pref.guide_tour );
 			}
 				// TODO: LAGA CSS
 				$('button#debug_button').hide();

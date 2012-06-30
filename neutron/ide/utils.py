@@ -21,6 +21,13 @@ _null_trans = string.maketrans("", "")
 
 DEFAULT_MT = 'application/octet-stream'
 
+def js_bool_to_python_bool(value):
+  if value == "true" or value=="1":
+    return True
+  else:
+    return False
+
+
 def external_service (request, fp):
   url = None
   

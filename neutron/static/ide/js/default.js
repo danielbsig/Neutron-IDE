@@ -106,6 +106,7 @@ function SaveCurrentTab (func) {
       if (data.result == 'bad') {
         alert(data.error);
       }
+      if (func != undefined) {func(); }
     },
     error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving: ' + dp); $("#status").html(''); },
   });
@@ -387,7 +388,7 @@ function file_browser () {
   $('#file_browser > div.inner').fileTree({ root: '', script: '/filetree/', expandSpeed: 200, collapseSpeed: 200 }, get_file);
 }
 
-function save_session () {
+function save_session (bGuideTour) {
   if (skip_session) {}
   
   else {
@@ -399,15 +400,26 @@ function save_session () {
     });
     
     files = files.substring(0, files.length-1);
-    
+    bGuideTour = (( bGuideTour == undefined ) ? false : bGuideTour);
     $.ajax({
       type: 'POST',
       url: '/save_session/',
-      data: {'files': files},
+      data: {'files': files, "guide_tour": bGuideTour},
       success: function (data, textStatus, jqXHR) {},
       error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving Session'); },
     });
   }
+}
+
+function save_guide_tour(bGuideTour){
+    $.ajax({
+      type: 'POST',
+      url: '/save_guide_tour/',
+      data: {"guide_tour": bGuideTour},
+      success: function (data, textStatus, jqXHR) {},
+      error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving Session'); },
+    });
+
 }
 
 function sort_change (event, ui) {
@@ -555,6 +567,7 @@ $(document).ready(function () {
   //Implementation of autoSave
     var autoSavePending = false;
     
+  if (editor_global){
       editor_global.getSession().on('change', function(){
         $("#status").html(' ');
         if (autoSavePending == false){
@@ -568,7 +581,7 @@ $(document).ready(function () {
           },5000);
           
         }
-      });
+      });}
 });
 
 function track_ide () {
@@ -609,7 +622,7 @@ function add_commands (e) {
    	  name: 'toggleBreakpoint',
       bindKey: {
        win: 'F9',
-       mac: 'Command-F9',
+       mac: 'Command-shift-B',
        sender: 'editor'
      },
      exec: function(env, args, request) { toggleBreakpoint(); }

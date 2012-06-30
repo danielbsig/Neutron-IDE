@@ -388,7 +388,7 @@ function file_browser () {
   $('#file_browser > div.inner').fileTree({ root: '', script: '/filetree/', expandSpeed: 200, collapseSpeed: 200 }, get_file);
 }
 
-function save_session () {
+function save_session (bGuideTour) {
   if (skip_session) {}
   
   else {
@@ -400,15 +400,26 @@ function save_session () {
     });
     
     files = files.substring(0, files.length-1);
-    
+    bGuideTour = (( bGuideTour == undefined ) ? false : bGuideTour);
     $.ajax({
       type: 'POST',
       url: '/save_session/',
-      data: {'files': files},
+      data: {'files': files, "guide_tour": bGuideTour},
       success: function (data, textStatus, jqXHR) {},
       error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving Session'); },
     });
   }
+}
+
+function save_guide_tour(bGuideTour){
+    $.ajax({
+      type: 'POST',
+      url: '/save_guide_tour/',
+      data: {"guide_tour": bGuideTour},
+      success: function (data, textStatus, jqXHR) {},
+      error: function (jqXHR, textStatus, errorThrown) { alert('Error Saving Session'); },
+    });
+
 }
 
 function sort_change (event, ui) {
